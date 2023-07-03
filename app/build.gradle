@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.jinvita.mysoundplayer'
+    namespace 'com.jinvita.testsoundplayer'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.jinvita.mysoundplayer"
+        applicationId "com.jinvita.testsoundplayer"
         minSdk 28
         targetSdk 33
         versionCode 1

@@ -1,9 +1,9 @@
-package com.jinvita.mysoundplayer
+package com.jinvita.testsoundplayer
 
 import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.jinvita.mysoundplayer.databinding.ActivityMainBinding
+import com.jinvita.testsoundplayer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
