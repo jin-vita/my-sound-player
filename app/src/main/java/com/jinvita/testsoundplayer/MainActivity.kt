@@ -7,45 +7,49 @@ import com.jinvita.testsoundplayer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val mediaPlayer1 by lazy {
-        MediaPlayer.create(this, R.raw.traffic).apply { setOnCompletionListener { start() } }
+    private var isNormal = true
+    private val mediaPlayer1 by lazy { MediaPlayer.create(this, R.raw.normal) }
+    private val mediaPlayer2 by lazy { MediaPlayer.create(this, R.raw.traffic) }
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer1.release()
+        mediaPlayer2.release()
     }
-    private val mediaPlayer2 by lazy { MediaPlayer.create(this, R.raw.traffic2) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        binding.buttonOne.setOnClickListener { playPauseAudio() }
-        binding.buttonTwo.setOnClickListener { playStopAudio() }
-    }
-
-    private fun playPauseAudio() {
-        if (mediaPlayer1.isPlaying) {
-            mediaPlayer1.pause()
-            binding.buttonOne.text = "1번 일시 정지"
-        } else {
-            mediaPlayer1.start()
-            binding.buttonOne.text = "1번 반복 재생 중"
-        }
-
-    }
-
-    private fun playStopAudio() {
-        if (mediaPlayer2.isPlaying) {
-            mediaPlayer2.stop()
-            mediaPlayer2.prepare()
-            binding.buttonTwo.text = "2번 정지"
-        } else {
-            mediaPlayer2.start()
-            binding.buttonTwo.text = "2번 재생 중"
+        setMediaPlayer()
+        mediaPlayer1.start()
+        with(binding) {
+            buttonOne.setOnClickListener {
+                isNormal = true
+                binding.textTitle.text = if (mediaPlayer1.isPlaying) "이미 1번 재생 중입니다" else "1번 재생 예약"
+            }
+            buttonTwo.setOnClickListener {
+                isNormal = false
+                binding.textTitle.text = if (mediaPlayer2.isPlaying) "이미 2번 재생 중입니다" else "2번 재생 예약"
+            }
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        mediaPlayer1.release()
-        mediaPlayer2.release()
+    private fun setMediaPlayer() {
+        mediaPlayer1.setOnCompletionListener {
+            if (isNormal) it.start() else {
+                it.stop()
+                it.prepare()
+                mediaPlayer2.start()
+                binding.textTitle.text = "2번 재생 중"
+            }
+        }
+        mediaPlayer2.setOnCompletionListener {
+            if (!isNormal) it.start() else {
+                it.stop()
+                it.prepare()
+                mediaPlayer1.start()
+                binding.textTitle.text = "1번 재생 중"
+            }
+        }
     }
 }

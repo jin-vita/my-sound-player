@@ -4,14 +4,32 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity" android:orientation="vertical">
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="20dp"
+        tools:context=".MainActivity"
+        android:orientation="vertical">
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
+    <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="basic sound player"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
 
     <Button
-            android:text="1번 정지/재생 버튼"
+            android:text="1번 재생 버튼"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/button_one"/>
     <Button
-            android:text="2번 일시정지/재생 버튼"
+            android:text="2번 재생 버튼"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/button_two"/>
 </LinearLayout>
