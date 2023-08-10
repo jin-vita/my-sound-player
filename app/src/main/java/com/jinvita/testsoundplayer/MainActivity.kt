@@ -26,10 +26,12 @@ class MainActivity : AppCompatActivity() {
             buttonOne.setOnClickListener {
                 isNormal = true
                 binding.textTitle.text = if (mediaPlayer1.isPlaying) "이미 1번 재생 중입니다" else "1번 재생 예약"
+                mediaPlayer1.setVolume(1f, 1f)
             }
             buttonTwo.setOnClickListener {
                 isNormal = false
                 binding.textTitle.text = if (mediaPlayer2.isPlaying) "이미 2번 재생 중입니다" else "2번 재생 예약"
+                mediaPlayer2.setVolume(0.2f, 0.2f)
             }
         }
     }
